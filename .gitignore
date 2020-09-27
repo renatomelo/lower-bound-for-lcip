@@ -1,0 +1,11 @@
+*.o
+*.a
+*.user
+*.pdf
+*.opt
+*.swp
+*.viewdigraphtempname
+*.config
+*.creator
+*.includes
+packages.microsoft.gpg
