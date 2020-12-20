@@ -22,7 +22,7 @@ This project contains the implementation of the combinatorial lower bound for th
 
 `bin/glcip -i <input-file> -a <algorithm> -alpha <value>`
 
-where the input-fle can be any file in `data/`, the algorithm can be `arc`(with is the branch-and-cut) or `arcwb` (branch-and-cut with the lower bound), and the `value` is any number in [0,1] interval.
+where the input-fle can be any file in `in/`, the algorithm can be `arc`(with is the branch-and-cut) or `arcwb` (branch-and-cut with the lower bound), and the `value` is any number in [0,1] interval.
 
 To replicate all the experiments done in the paper run the following commands:
 
