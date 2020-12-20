@@ -1,6 +1,5 @@
 # Tighter Dual Bounds on the Least Cost Influence Problem
-
-**Problem**: The Least Cost Influence Problem is a combinatorial problem that is usually described in the context of social networks. The objective is to give incentives to a set of individuals in the network, such that some information is spread at minimum cost. 
+The Least Cost Influence Problem is a combinatorial problem that is usually described in the context of social networks. The objective is to give incentives to a set of individuals in the network, such that some information is spread at minimum cost. 
 
 We provide an efficient algorithm to get lower bounds in a branch-and-bound scheme, and use these in a Branch-and-Cut method.
 
