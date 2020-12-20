@@ -14,7 +14,7 @@ This project contains the implementation of the combinatorial lower bound for th
 
 ## Compilation:
 
-`cd exact-least-cost-influence/`
+`cd lower-bound-for-lcip/`
 
 `make LPS=grb`
 
