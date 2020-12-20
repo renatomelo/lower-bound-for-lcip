@@ -8,18 +8,18 @@ This project contains the implementation of the combinatorial lower bound for th
 
 - [Tighter Dual Bounds on the Least Cost Influence Problem](https://proceedings.science/sbpo-2020/papers/tighter-dual-bounds-on-the-least-cost-influence-problem)
 
-##Dependences:
+## Dependences:
 1. SCIP optimization framework version 6.0.1
 2. Gurobi optimization solver version 8.1
 3. Lemon graph library version 1.3
 
-##Compilation:
+## Compilation:
 
 `cd exact-least-cost-influence/`
 
 `make LPS=grb`
 
-##Execution:
+## Execution:
 
 `bin/glcip -i <input-file> -a <algorithm> -alpha <value>`
 
