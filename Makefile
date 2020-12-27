@@ -56,7 +56,7 @@ MAINOBJ		=	mycolor.o \
 				cyclecutsgenerator.o \
 				graphviewer.o \
 				GLCIPBase.o \
-				heur_dualbound.o \
+				dualbound.o \
 				main.o
 MAINSRC		=	$(addprefix $(SRCDIR)/,$(MAINOBJ:.o=.cpp))
 MAINDEP		=	$(SRCDIR)/depend.cppmain.$(OPT)

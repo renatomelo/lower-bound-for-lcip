@@ -1,7 +1,5 @@
 #include "GLCIPBase.h"
-#include "heur_dualbound.h"
-#include "heur_ordering.h"
-#include "heur_greedy_construction.h"
+#include "dualbound.h"
 
 bool ArcModelWithBounds::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLimit)
 {
@@ -14,9 +12,7 @@ bool ArcModelWithBounds::run(GLCIPInstance &instance, GLCIPSolution &solution, i
 
     // create an empty problem
     SCIP_CALL(SCIPcreateProb(scip, "GLCIP Problem", NULL, NULL, NULL, NULL, NULL, NULL, NULL));
-    //SCIP_CALL(SCIPsetObjsense(scip, SCIP_OBJSENSE_MINIMIZE));
-    SCIP_CALL(SCIPsetIntParam(scip, "display/verblevel", 1));
-    SCIP_CALL(SCIPsetStringParam(scip, "visual/vbcfilename", "branchandbound.vbc"));
+    SCIP_CALL(SCIPsetIntParam(scip, "display/verblevel", 0));
 
     SCIPsetPresolving(scip, SCIP_PARAMSETTING_OFF, TRUE);
 
@@ -99,16 +95,8 @@ bool ArcModelWithBounds::run(GLCIPInstance &instance, GLCIPSolution &solution, i
     SCIP_CALL(SCIPaddCons(scip, cons));
     SCIP_CALL(SCIPreleaseCons(scip, &cons));
 
-    //primal heuristic
-    /* HeurOrdering *ordering = new HeurOrdering(scip, instance, x, z, xip);
-    SCIP_CALL(SCIPincludeObjHeur(scip, ordering, TRUE)); */
-
-    //primal heuristic
-    //HeurGreedyConstruction *greedy = new HeurGreedyConstruction(scip, instance, x, z, xip);
-    //SCIP_CALL(SCIPincludeObjHeur(scip, greedy, TRUE));
-
     //include combinatorial relaxation
-    SCIP_CALL(SCIPincludeObjRelax(scip, new HeurDualBound(scip, instance, x, z), TRUE));
+    SCIP_CALL(SCIPincludeObjRelax(scip, new DualBound(scip, instance, x, z), TRUE));
 
     // bound the execution time
     SCIP_CALL(SCIPsetRealParam(scip, "limits/time", timeLimit));
@@ -121,9 +109,8 @@ bool ArcModelWithBounds::run(GLCIPInstance &instance, GLCIPSolution &solution, i
     //reached time limit
     if (SCIPgetStatus(scip) == SCIP_STATUS_TIMELIMIT)
     {
-        printf("%.2lf\t%lld\t%d\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip),
+        printf("%.2lf\t%lld\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip),
                SCIPgetNNodes(scip),
-               SCIPgetNContVars(scip),
                SCIPgetDualbound(scip),
                SCIPgetPrimalbound(scip),
                SCIPgetGap(scip));
@@ -131,9 +118,8 @@ bool ArcModelWithBounds::run(GLCIPInstance &instance, GLCIPSolution &solution, i
     }
 
     //cout << "time \tnodes \tdualbound \tprimalbound \tgap" << endl;
-    printf("%.2lf\t%lld\t%d\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip),
+    printf("%.2lf\t%lld\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip),
            SCIPgetNNodes(scip),
-           SCIPgetNContVars(scip),
            SCIPgetDualbound(scip),
            SCIPgetPrimalbound(scip),
            SCIPgetGap(scip));

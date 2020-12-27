@@ -1,6 +1,4 @@
 #include "GLCIPBase.h"
-#include "heur_dualbound.h"
-#include "heur_ordering.h"
 
 bool ArcModel::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLimit)
 {
@@ -13,11 +11,8 @@ bool ArcModel::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLim
 
     // create an empty problem
     SCIP_CALL(SCIPcreateProb(scip, "GLCIP Problem", NULL, NULL, NULL, NULL, NULL, NULL, NULL));
-    //SCIP_CALL(SCIPsetObjsense(scip, SCIP_OBJSENSE_MINIMIZE));
     SCIP_CALL(SCIPsetIntParam(scip, "display/verblevel", 0));
-    SCIP_CALL(SCIPsetStringParam(scip, "visual/vbcfilename", "branchandbound.vbc"));
 
-    //SCIP_CALL(SCIPsetBoolParam(scip, "lp/presolving", FALSE));
     SCIPsetPresolving(scip, SCIP_PARAMSETTING_OFF, TRUE);
 
     // add variables to the model
@@ -101,10 +96,6 @@ bool ArcModel::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLim
     SCIP_CALL(SCIPaddCons(scip, cons));
     SCIP_CALL(SCIPreleaseCons(scip, &cons));
 
-    //primal heuristic
-    HeurOrdering *ordering = new HeurOrdering(scip, instance, x, z, xip);
-    SCIP_CALL(SCIPincludeObjHeur(scip, ordering, TRUE));
-
     // bound the execution time
     SCIP_CALL(SCIPsetRealParam(scip, "limits/time", timeLimit));
 
@@ -117,9 +108,8 @@ bool ArcModel::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLim
     if (SCIPgetStatus(scip) == SCIP_STATUS_TIMELIMIT)
     {
         //cout << "reached time limit" << endl;
-        printf("%.2lf\t%lld\t%d\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip), 
+        printf("%.2lf\t%lld\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip), 
                                              SCIPgetNNodes(scip),
-                                             SCIPgetNContVars(scip), 
                                              SCIPgetDualbound(scip), 
                                              SCIPgetPrimalbound(scip),
                                              SCIPgetGap(scip));
@@ -128,9 +118,8 @@ bool ArcModel::run(GLCIPInstance &instance, GLCIPSolution &solution, int timeLim
 
     //std::cout << SCIPgetSolvingTime(scip) << std::endl;
     //cout << "time \tnodes \tdualbound \tprimalbound \tgap" << endl;
-    printf("%.2lf\t%lld\t%d\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip), 
+    printf("%.2lf\t%lld\t%lf\t%lf\t%.2lf\n", SCIPgetSolvingTime(scip), 
                                              SCIPgetNNodes(scip),
-                                             SCIPgetNContVars(scip), 
                                              SCIPgetDualbound(scip), 
                                              SCIPgetPrimalbound(scip),
                                              SCIPgetGap(scip));

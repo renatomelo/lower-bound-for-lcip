@@ -8,4 +8,6 @@
 *.config
 *.creator
 *.includes
+bin/
+*.vbc
 packages.microsoft.gpg

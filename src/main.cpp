@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     readCheckParams(params, argc, argv);
 
     // read instance from file
-    readInstance(g, nodeName, posx, posy, influence, threshold, incentives, n, m, "../in/" + params.inputFile);
+    readInstance(g, nodeName, posx, posy, influence, threshold, incentives, n, m, params.inputFile);
     GLCIPInstance instance(g, nodeName, posx, posy, influence, threshold, incentives, params.alpha, n, m);
 
     // solve it
@@ -27,25 +27,15 @@ int main(int argc, char *argv[])
     if(params.alg.compare("cov") == 0)
         GurobiBCP::run(instance, solution, measures, params.timeLimit);
     */
-    if (params.alg.compare("arc") == 0)
+    if (params.alg.compare("bc") == 0)
     {
         ArcModel::run(instance, solution, params.timeLimit);
         //GraphViewer::ViewGLCIPSolution(instance, solution, "GLCIP Solution - Arc Model");
     }
-    if (params.alg.compare("arcwb") == 0)
+    if (params.alg.compare("bc+") == 0)
     {
         ArcModelWithBounds::run(instance, solution, params.timeLimit);
         //GraphViewer::ViewGLCIPSolution(instance, solution, "GLCIP Solution - Arc Model");
-    }
-    if (params.alg.compare("cov") == 0)
-    {
-        CovModelAllVariables::run(instance, solution, params.timeLimit);
-        //GraphViewer::ViewGLCIPSolution(instance, solution, "GLCIP Solution - Cov Model with all variables");
-    }
-    if (params.alg.compare("covcg") == 0)
-    {
-        CovModel::run(instance, solution, params.timeLimit);
-        //GraphViewer::ViewGLCIPSolution(instance, solution, "GLCIP Solution - Cov Model with column generation");
     }
 
     /* auto done = chrono::high_resolution_clock::now();
@@ -58,7 +48,7 @@ int main(int argc, char *argv[])
 void readCheckParams(Params &params, int argc, char *argv[])
 {
     params.alg = "";
-    params.timeLimit = 300;
+    params.timeLimit = 1800;
     params.inputFile = "";
     params.graph = false;
     params.alpha = 0.5;
@@ -85,7 +75,7 @@ void readCheckParams(Params &params, int argc, char *argv[])
             continue;
         }
 
-        if (arg.find("-i") == 0 && next.size() > 0)
+        if (arg.find("-f") == 0 && next.size() > 0)
         {
             params.inputFile = next;
             i++;

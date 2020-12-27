@@ -20,14 +20,19 @@ This project contains the implementation of the combinatorial lower bound for th
 
 ## Execution:
 
-`bin/glcip -i <input-file> -a <algorithm> -alpha <value>`
+`bin/glcip -f <input-file> -a <algorithm> -alpha <value>`
 
-where the input-fle can be any file in `in/`, the algorithm can be `arc`(with is the branch-and-cut) or `arcwb` (branch-and-cut with the lower bound), and the `value` is any number in [0,1] interval.
+where the input-fle can be any file in `data/`, the algorithm can be `bc`(is the branch-and-cut) or `bc+` (is the branch-and-cut with the lower bound), and the `value` is any number in [0,1] interval.
+
+### Example
+`bin/glcip -f data/small/SW-n100-k4-b0.3-d1-10-g0.7-i1.lcip -a bc+ -alpha 1`
 
 To replicate all the experiments done in the paper run the following commands:
 
 For the small world synthetic graphs:
-`python3  src/run_sw_instances.py`
+`cd src/; python3  run_sw_instances.py`
 
 For the real-world based graphs:
-`python3  src/run_realworld_instances.py `
+`cd src/; python3  run_realworld_instances.py`
+
+The algorithm proposed in the paper above is implemented in: `src/dualbound.cpp`
