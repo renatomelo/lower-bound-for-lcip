@@ -36,3 +36,15 @@ For the real-world based graphs:
 `cd src/; python3  run_realworld_instances.py`
 
 The algorithm proposed in the paper above is implemented in: `src/dualbound.cpp`
+
+To cite this paper in latex use:
+
+```
+@inproceedings{melo2020tighter,
+	title={Tighter Dual Bounds on the Least Cost Influence Problem},
+	author={de Melo, Renato Silva and Vignatti, Andre Lu{\i}s and Miyazawa, Fl{\'a}vio Keidi and Ota, Matheus Jun},
+	booktitle={Proceedings of the 52nd Brazilian Operational Research Symposium},
+	year={2020},
+	organization={SBPO}
+}
+```
